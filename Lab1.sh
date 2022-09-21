@@ -1,15 +1,16 @@
 #!/bin/bash
+
 read -p "Введите ссылку на репозиторий: " URL
+cd /home/knyazsibiryak/rty
 
-BASE=$(basename ${URL})             
-FILE=$(printf '%b' ${BASE//%/\\x})  
-wget ${URL}
-
-cp $FILE -t /media/knyazsibiryak/Rubbish/Ubunta
-
-rm /home/knyazsibiryak/$FILE
-
-chmod g+rw /media/knyazsibiryak/Rubbish/Ubunta
+git clone $URL
+FOUND="$(ls -tr | tail)"
+mkdir /media/knyazsibiryak/Rubbish/Ubunta/work1
+mv /home/knyazsibiryak/rty/"${FOUND}"/* /media/knyazsibiryak/Rubbish/Ubunta/work1
+rm -rf /home/knyazsibiryak/rty/"${FOUND}"
+sudo chmod g+rw /media/knyazsibiryak/Rubbish/Ubunta/work1
 
 echo "Лабороторная работа №1 выполнена"
 
+BASE=$(basename ${URL})
+FILE=$(printf '%b' ${BASE//%/\\x})
